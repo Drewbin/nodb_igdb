@@ -1,5 +1,5 @@
 {
-  "name": "movie_search",
+  "name": "nodb_final",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,10 +7,10 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "jquery": "^3.3.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-scripts": "2.1.3"
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

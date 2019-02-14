@@ -1,34 +1,28 @@
 const express = require('express');
-const bodyParser = require('body-parser')
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const {apiKey, apiUrl} = require('../config')
 
-const app = express()
+const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
-let movies = [];
-
-app.post('/create', (req, res) => {
-    if(movies.length == 0){
-        movies.push(req.body);
-    }
-    res.status(200).send(movies)
+app.get('/api/current/movies', (req, res) => {
+    axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=ef6c1d08711de9897471cf423a857236&primary_release_date.gte=2019-01-06&primary_release_date.lte=2019-02-14`).then(response => {
+        res.status(200).json(response.data)
+    }).catch((err) => {
+        console.error(err)
+    })
 })
 
-app.delete('/remove:id', (req,res) => {
-    let {id} = req.params;
-    movies.splice(id, 1);
-    res.status(200).send(movies)
-})
+app.get(`/api/search/movies/:name`, (req, res,)=> {
+    axios.get(`https://api.themoviedb.org/3/search/movie${apiKey}&query=${req.params.name}`).then(response=> {
+      res.status(200).json(response.data);
+    });
+});
 
-app.put('/update/:id', (req, res) => {
-    console.log(req.body, req.params)
-    let {id} = req.params;
-    if(movies.length == 1) {
-        movies[0] = req.body;
-    };
-    res.status(200).send(movies)
-})
-
-app.listen(3002, () => {
-    console.log('App live at localhost: 3002')
+app.listen(3003, () =>{
+    console.log('Server live on port 3003')
 })

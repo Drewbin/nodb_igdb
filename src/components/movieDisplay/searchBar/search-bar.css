@@ -1,0 +1,15 @@
+.searchBar {
+    font-size: 1.3em;
+    font-weight: bold;
+    display: block;
+    width: 99%;
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .searchButton {
+    width: 80px;
+    height: 21px;
+    margin-left: 1px;
+  }

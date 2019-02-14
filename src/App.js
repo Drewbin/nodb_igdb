@@ -1,63 +1,27 @@
 import React, { Component } from 'react';
-import './App.css';
 import axios from 'axios';
+import './App.css';
 
-import MovieRow from './components/MovieRow/MovieRow'
-
-
-
+import Header from './components/header/Header';
+import MovieDisplay from './components/movieDisplay/MovieDisplay'
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
-      movies : [],
-    };
-
-
-    this.getMovies()
+      movieList : [],
+    }
   }
 
-  getMovies(input) {
-    axios.get('https://api.themoviedb.org/3/search/movie?api_key=ef6c1d08711de9897471cf423a857236&query=' + input).then((response) => {
-      console.log(response);
-      this.setState({movies : response })
-    }).catch((err) => {
-      console.error(err);
-    })
-  };
-  
-  searchChangeHandler(event) {
-    console.log(event.target.value)
-    const input = event.target.value
-    this.getMovies(input)
-  }
+
 
   render() {
+    console.log(this.state.movieList)
     return (
       <div className="App">
-        
-        <table className='titleBar'>
-          <tbody>
-            <tr>
-              <td>
-                <img alt="app icon" width='100' src="movie_reel.jpg" />
-              </td>
-              <td width='10' />
-              <td>
-                <h1>Movie Search</h1> 
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <input 
-          className='searchBox' 
-          placeholder="Enter movie name"
-          onChange={this.searchChangeHandler.bind(this)} />
-
-        {this.state.id}
-        
+        <Header />
+        <h1>Final app</h1>
+        <MovieDisplay />
       </div>
     );
   }
@@ -66,14 +30,5 @@ class App extends Component {
 export default App;
 
 
-// api key: ef6c1d08711de9897471cf423a857236
-
-// sample request: https://api.themoviedb.org/3/movie/550?api_key=ef6c1d08711de9897471cf423a857236
-
-
-
-
-
-
-
-
+//apiUrl: 'https://api.themoviedb.org/3',
+//apiKey: '?api_key=ef6c1d08711de9897471cf423a857236'

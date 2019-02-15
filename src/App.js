@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import './App.css';
 
-import Header from './components/header/Header';
+import Header from './components/Header/Header';
 import MovieDisplay from './components/movieDisplay/MovieDisplay'
 class App extends Component {
   constructor() {
@@ -20,7 +20,6 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <h1>Final app</h1>
         <MovieDisplay />
       </div>
     );

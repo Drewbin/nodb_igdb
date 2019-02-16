@@ -57,7 +57,8 @@ export default class MovieDisplay extends Component {
         this.setState({ faveList : response.data });
       });
     }
-    
+
+  
     render(){
       const imgUrl = 'http://image.tmdb.org/t/p/original';
       let mappedMoviesList = this.state.movieList.map((movie, index) => {
@@ -86,7 +87,8 @@ export default class MovieDisplay extends Component {
           <div>
             <SearchBar 
               handleSearchChange={this.handleSearchChange} 
-              submitSearch={this.submitSearch}/>
+              submitSearch={this.submitSearch}
+              searchVal={this.searchVal} />
 
             {mappedMoviesList}
             

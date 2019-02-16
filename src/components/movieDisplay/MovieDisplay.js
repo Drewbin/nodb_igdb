@@ -2,7 +2,7 @@ import React , {Component} from 'react';
 import axios from 'axios';
 import './MovieDisplay.css';
 import SearchBar from './searchBar/SearchBar'
-import Favorites from './favorites/Favorites'
+import FavoriteMovies from './favorites/FavoriteMovies'
 
 export default class MovieDisplay extends Component {
     constructor(props) {
@@ -28,6 +28,12 @@ export default class MovieDisplay extends Component {
         })
     }
 
+    componentWillMount() {
+      axios.get('http://localhost:3003/api/favorite/movies').then(response => {
+        this.setState({ faveList : response.data });
+      });
+    }
+
     handleSearchChange(input) {
       this.setState({ searchVal : input });
     }
@@ -41,14 +47,15 @@ export default class MovieDisplay extends Component {
     }
 
     addToFavorites(id) {
-      let fave = this.state.movieList.filter((movie, index) => {
-        return (
-          movie.id == id
-        )
-      })
-      this.setState({
-        faveList : fave,
-      })
+      axios.post('http://localhost:3003/api/favorite/movies/', {id}).then(response => {
+        this.setState({ faveList : response.data });
+      });
+    }
+
+    deleteFromFavorites(id) {
+      axios.delete('http://localhost:3003/api/favorite/movies/' + id).then(response => {
+        this.setState({ faveList : response.data });
+      });
     }
     
     render(){
@@ -64,11 +71,12 @@ export default class MovieDisplay extends Component {
                 />
             </a>
             <h2>{movie.title}</h2>
-            
             {movie.overview}
+            <button
+              type='button'
+              onClick={() => this.addToFavorites(movie.id)}>💖</button>
 
-            <Favorites addToFavorites={this.addToFavorites}
-            id={movie.id}/>
+
 
           </div>
         )
@@ -82,8 +90,9 @@ export default class MovieDisplay extends Component {
 
             {mappedMoviesList}
             
-            <h1>Favorites</h1>
-            {this.state.faveList}
+            <FavoriteMovies 
+              favoriteMovies={this.state.faveList}
+              removeFromFavorites={id => this.deleteFromFavorites(id)} />
               
           </div>
           )

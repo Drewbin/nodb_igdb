@@ -44,6 +44,24 @@ app.post('/api/favorite/movies', (req, res) => {
     res.status(201).send(favoriteMovies)
 });
 
+app.put('/api/favorite/movies/:id', (req,res) => {
+    const update = req.body;
+    const { id } = req.params;
+
+    const oldMovieIndex = favoriteMovies.findIndex( mov => mov.id == id);
+
+    if (oldMovieIndex == -1 ) {
+        return res.status(404).send({ message: 'No movie found with id ' + id });
+    }
+
+    favoriteMovies[oldMovieIndex] = {
+        ...favoriteMovies[oldMovieIndex],
+        ...update,
+    };
+
+    res.send(favoriteMovies);
+})
+
 
 app.delete(`/api/favorite/movies/:id`, (req, res) =>{
     const favoriteId = +req.params.id;
@@ -53,6 +71,8 @@ app.delete(`/api/favorite/movies/:id`, (req, res) =>{
 
     res.send(favoriteMovies);
 })
+
+
 
 
 app.listen(3003, () =>{
